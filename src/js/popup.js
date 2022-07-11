@@ -100,36 +100,38 @@ export async function initNavigationPopup() {
 
         const exampleListElement = document.createElement("ul");
 
-        examplesByCategory[category.id].forEach((example) => {
-            const exampleListItemElement = document.createElement("li");
-            exampleListItemElement.classList.add("Popup__exampleItem");
+        examplesByCategory[category.id]
+            .sort((a, b) => a.label.localeCompare(b.label))
+            .forEach((example) => {
+                const exampleListItemElement = document.createElement("li");
+                exampleListItemElement.classList.add("Popup__exampleItem");
 
-            if (example.icon) {
-                const exampleIconElement = document.createElement("img");
-                exampleIconElement.classList.add("Popup__exampleIcon");
-                exampleIconElement.setAttribute("src", example.icon.icon);
-                exampleIconElement.setAttribute("alt", example.icon.name);
-                exampleListItemElement.appendChild(exampleIconElement);
-            }
+                if (example.icon) {
+                    const exampleIconElement = document.createElement("img");
+                    exampleIconElement.classList.add("Popup__exampleIcon");
+                    exampleIconElement.setAttribute("src", example.icon.icon);
+                    exampleIconElement.setAttribute("alt", example.icon.name);
+                    exampleListItemElement.appendChild(exampleIconElement);
+                }
 
-            const exampleLinkElement = document.createElement("a");
-            exampleLinkElement.textContent = example.label;
-            exampleLinkElement.classList.add("Popup__exampleLink");
-            if (example.link) {
-                exampleLinkElement.setAttribute("href", example.link);
-            }
-            exampleListItemElement.appendChild(exampleLinkElement);
+                const exampleLinkElement = document.createElement("a");
+                exampleLinkElement.textContent = example.label;
+                exampleLinkElement.classList.add("Popup__exampleLink");
+                if (example.link) {
+                    exampleLinkElement.setAttribute("href", example.link);
+                }
+                exampleListItemElement.appendChild(exampleLinkElement);
 
-            if (!example.isReleased) {
-                const exampleSoonElement = document.createElement("span");
-                exampleSoonElement.classList.add("Popup__exampleSoon");
-                exampleSoonElement.textContent = 'Soon';
-                exampleListItemElement.classList.add("Popup__exampleItem--soon");
-                exampleListItemElement.appendChild(exampleSoonElement);
-            }
+                if (!example.isReleased) {
+                    const exampleSoonElement = document.createElement("span");
+                    exampleSoonElement.classList.add("Popup__exampleSoon");
+                    exampleSoonElement.textContent = 'Soon';
+                    exampleListItemElement.classList.add("Popup__exampleItem--soon");
+                    exampleListItemElement.appendChild(exampleSoonElement);
+                }
 
-            exampleListElement.appendChild(exampleListItemElement);
-        });
+                exampleListElement.appendChild(exampleListItemElement);
+            });
 
         popupListItemElement.appendChild(exampleListElement);
         popupListElement.appendChild(popupListItemElement);
