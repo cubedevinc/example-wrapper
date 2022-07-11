@@ -168,6 +168,19 @@ body.popupIsOpen::after {
     height: 40px;
 }
 
+.Popup__exampleSoon {
+    color: rgb(213,213,226);
+    text-transform: lowercase;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: normal;
+    line-height: 20px;
+    padding: 0px 4px 2px;
+    border: 1px solid rgba(20,20,70,0.1);
+    border-radius: 4px;
+}
+
 .Popup__exampleLink {
     font-weight: 500;
     font-size: 16px;
@@ -182,6 +195,12 @@ body.popupIsOpen::after {
 
 .Popup__exampleLink:hover {
     color: #6B4FEE;
+}
+
+.Popup__exampleItem--soon .Popup__exampleLink,
+.Popup__exampleItem--soon .Popup__exampleLink:hover {
+    color: rgb(161,161,181);
+    cursor: default;
 }
 
 .Popup__exampleIcon {

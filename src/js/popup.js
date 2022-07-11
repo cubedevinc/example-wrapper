@@ -18,89 +18,122 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 export async function initNavigationPopup() {
-    const query = `{examplesCollection(limit: 40) {
+    const query = `{
+        examplesCollection {
             items {
-                title, 
-                link,
-                isReleased, 
-                structureCollection (limit: 10) {
-                    items{category{,title
+                title
+                link
+                isReleased
+                structureCollection(limit: 5) {
+                    items {
+                        label
+                        category {
+                            title
+                            sys {
+                                id
+                            }
+                        }
+                        icon {
+                            name
+                            icon
                         }
                     }
                 }
-                toolsCollection{
-                    items{
-                        icon
-                    }
+            }
+        }
+        exampleCategoriesCollection(order: order_ASC) {
+            items {
+                title
+                sys {
+                    id
                 }
             }
         }
     }`;
-    const url = `https://graphql.contentful.com/content/v1/spaces/${process.env.CUBE_EXAMPLES_SPACE_ID}?access_token=${process.env.CUBE_EXAMPLES_CONTENT_DELIVERY_API_TOKEN}&query=${query}`;
-    const examplesList = (await (await fetch(url)).json()).data.examplesCollection.items;
-    const examples = {};
-    examplesList.forEach((item) => {
-        const category = item.structureCollection.items[0].category.title;
-        const icon = item.toolsCollection.items
-            ? item.toolsCollection.items[0]
-                ? item.toolsCollection.items[0].icon : ''
-            : '';
-        if (examples[category]) {
-            examples[category].examples.push({
-                name: item.title,
-                link: item.link,
-                icon: icon,
-                isReleased: item.isReleased,
-            });
-        } else {
-            examples[category] = {};
-            examples[category].header = category;
-            examples[category].examples = [{
-                name: item.title,
-                link: item.link,
-                icon: icon,
-                isReleased: item.isReleased,
-            }];
+
+    const response = await fetch(
+        `https://graphql.contentful.com/content/v1/spaces/${process.env.CUBE_EXAMPLES_SPACE_ID}`,
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${process.env.CUBE_EXAMPLES_CONTENT_DELIVERY_API_TOKEN}`,
+            },
+            body: JSON.stringify({ query }),
         }
+    );
+
+    const { data } = await response.json();
+
+    const categories = data.exampleCategoriesCollection.items.map(({ sys, ...rest }) => ({ ...rest, id: sys.id }));
+    
+    const examplesByCategory = categories.reduce((result, { id }) => ({ ...result, [id]: [] }), {});
+
+    data.examplesCollection.items.forEach((item) => {
+        item.structureCollection.items.forEach((it) => {
+            if (examplesByCategory[it.category.sys.id]) {
+                // ToDo: rewrite mapping injection to example data
+                const itemCopy = Object.assign({}, item, {
+                    label: it.label,
+                    icon: it.icon
+                });
+
+                delete itemCopy.structureCollection;
+
+                examplesByCategory[it.category.sys.id].push(itemCopy);
+            }
+        });
     });
 
-    const examplesListsList = document.createElement("ul");
-    examplesListsList.classList.add("Popup__list");
 
-    console.log(examples);
+    const popupListElement = document.createElement("ul");
+    popupListElement.classList.add("Popup__list");
 
-    Object.values(examples).forEach((item) => {
-        const listElement = document.createElement("li");
+    categories.forEach((category) => {
+        const popupListItemElement = document.createElement("li");
 
-        const headerElement = document.createElement("h2");
-        headerElement.innerHTML = item.header;
-        headerElement.classList.add("Popup__examplesListHeader");
-        listElement.appendChild(headerElement);
-        const examplesList = document.createElement("ul");
-        item.examples.forEach((example) => {
-            const exampleElement = document.createElement("li");
-            exampleElement.classList.add("Popup__exampleItem");
+        const popupListTitleElement = document.createElement("h2");
+        popupListTitleElement.textContent = category.title;
+        popupListTitleElement.classList.add("Popup__examplesListHeader");
+
+        popupListItemElement.appendChild(popupListTitleElement);
+
+        const exampleListElement = document.createElement("ul");
+
+        examplesByCategory[category.id].forEach((example) => {
+            const exampleListItemElement = document.createElement("li");
+            exampleListItemElement.classList.add("Popup__exampleItem");
 
             if (example.icon) {
-                const exampleIcon = document.createElement("img");
-                exampleIcon.classList.add("Popup__exampleIcon");
-                exampleIcon.setAttribute("src", example.icon);
-                exampleIcon.setAttribute("alt", example.icon);
-                exampleElement.appendChild(exampleIcon);
+                const exampleIconElement = document.createElement("img");
+                exampleIconElement.classList.add("Popup__exampleIcon");
+                exampleIconElement.setAttribute("src", example.icon.icon);
+                exampleIconElement.setAttribute("alt", example.icon.name);
+                exampleListItemElement.appendChild(exampleIconElement);
             }
 
-            const exampleLink = document.createElement("a");
-            exampleLink.innerHTML = example.name;
-            exampleLink.classList.add("Popup__exampleLink");
-            exampleLink.setAttribute("href", example.link);
-            exampleElement.appendChild(exampleLink);
+            const exampleLinkElement = document.createElement("a");
+            exampleLinkElement.textContent = example.label;
+            exampleLinkElement.classList.add("Popup__exampleLink");
+            if (example.link) {
+                exampleLinkElement.setAttribute("href", example.link);
+            }
+            exampleListItemElement.appendChild(exampleLinkElement);
 
-            examplesList.appendChild(exampleElement);
+            if (!example.isReleased) {
+                const exampleSoonElement = document.createElement("span");
+                exampleSoonElement.classList.add("Popup__exampleSoon");
+                exampleSoonElement.textContent = 'Soon';
+                exampleListItemElement.classList.add("Popup__exampleItem--soon");
+                exampleListItemElement.appendChild(exampleSoonElement);
+            }
+
+            exampleListElement.appendChild(exampleListItemElement);
         });
 
-        listElement.appendChild(examplesList);
-        examplesListsList.appendChild(listElement);
+        popupListItemElement.appendChild(exampleListElement);
+        popupListElement.appendChild(popupListItemElement);
     });
 
-    return examplesListsList;
+    return popupListElement;
 }
