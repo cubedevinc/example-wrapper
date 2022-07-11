@@ -81,19 +81,34 @@ export async function initNavigationPopup() {
             const exampleElement = document.createElement("li");
             exampleElement.classList.add("Popup__exampleItem");
 
+            let exampleItem;
+
+            if (example.isReleased) {
+                exampleItem = document.createElement("a");
+                exampleItem.innerHTML = example.name;
+                exampleItem.classList.add("Popup__exampleLink");
+                exampleItem.setAttribute("href", example.link);
+                exampleElement.appendChild(exampleItem);
+            }
+            else {
+                exampleItem = document.createElement("span");
+                exampleItem.innerHTML = example.name;
+                exampleItem.classList.add("Popup__exampleElement");
+                exampleElement.appendChild(exampleItem);
+
+                const exampleLabel = document.createElement("span");
+                exampleLabel.innerHTML = "soon";
+                exampleLabel.classList.add("Popup__exampleLabel");
+                exampleItem.appendChild(exampleLabel);
+            }
+
             if (example.icon) {
                 const exampleIcon = document.createElement("img");
                 exampleIcon.classList.add("Popup__exampleIcon");
                 exampleIcon.setAttribute("src", example.icon);
                 exampleIcon.setAttribute("alt", example.icon);
-                exampleElement.appendChild(exampleIcon);
+                exampleItem.prepend(exampleIcon);
             }
-
-            const exampleLink = document.createElement("a");
-            exampleLink.innerHTML = example.name;
-            exampleLink.classList.add("Popup__exampleLink");
-            exampleLink.setAttribute("href", example.link);
-            exampleElement.appendChild(exampleLink);
 
             examplesList.appendChild(exampleElement);
         });
