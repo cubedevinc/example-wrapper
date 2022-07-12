@@ -23,7 +23,7 @@ function isCurrentExample(exampleLink) {
 
     return location.hostname === link.hostname
         && location.pathname === link.pathname
-        && location.hash === link.hash;
+        && location.hash.replace(/^\#\//g, '') === link.hash.replace(/^\#\//g, '');
 }
 
 export async function initNavigationPopup() {
