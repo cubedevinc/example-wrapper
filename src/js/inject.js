@@ -3,7 +3,8 @@
   and DataDog Browser Logs 
 */
 
-import wrapperStyle from "../style.css";
+import wrapperStyle from "../styles/style.css";
+import popupStyle from "../styles/popup.css";
 
 // inject DD Browser Logs
 (function (scriptId) {
@@ -40,6 +41,6 @@ const injectScript = (src, tag, code) => {
 // Inject stylesheet
 (function () {
   const style = document.createElement("style");
-  style.innerHTML = wrapperStyle.toString();
+  style.innerHTML = wrapperStyle.toString() + popupStyle.toString();
   document.querySelector("head").appendChild(style);
 })();

@@ -1,7 +1,10 @@
 import headerTemplate from "../components/header.html";
 import footerTemplate from "../components/footer.html";
 import descriptionTemplate from "../components/description.html";
+import popupTemplate from "../components/popup.html";
 import Favicon from "../assets/favicon.ico";
+
+import { initNavigationPopup } from "./popup.js";
 
 const documentBody = document.querySelector("body");
 
@@ -41,11 +44,25 @@ class Wrapper {
     }
   };
 
-  #renderHeader = () =>
+  #renderHeader = () => {
+    const header = parseHTML(headerTemplate);
     documentBody.insertBefore(
-      parseHTML(headerTemplate),
-      documentBody.firstChild
+        header,
+        documentBody.firstChild
     );
+  };
+
+  #renderNavigationPopup = () => {
+    const popup = parseHTML(popupTemplate);
+    documentBody.appendChild(
+        popup,
+    );
+  };
+
+  #renderExamplesList = async () => {
+    const examplesList = documentBody.querySelector(".Popup__examplesList");
+    examplesList.appendChild(await initNavigationPopup());
+  };
 
   #renderDescription = () => {
     const { title, text } = this.#description;
@@ -68,6 +85,8 @@ class Wrapper {
     this.#renderHeader();
     this.#renderDescription();
     this.#renderFooter();
+    this.#renderNavigationPopup();
+    this.#renderExamplesList();
   };
 }
 
