@@ -5,4 +5,7 @@ import "./js/feedback";
 import "./js/tracking";
 import Wrapper from "./js/wrapper";
 
-export default Wrapper;
+export default (description) => {
+    const wrapper = new Wrapper(description);
+    wrapper.render();
+};
