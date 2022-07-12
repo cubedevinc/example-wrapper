@@ -12,10 +12,10 @@ yarn add @cube-dev/example-wrapper
 
 ## Usage
 
-At the entry point of your app, import `Wrapper`:
+At the entry point of your app, import `createExampleWrapper` helper:
 
 ```js
-import Wrapper from "@cube-dev/example-wrapper";
+import createExampleWrapper from "@cube-dev/example-wrapper";
 ```
 
 Define an example description object and fill it with your values:
@@ -29,9 +29,8 @@ const exampleDescription = {
 
 *Note: you can use HTML tags inside the `text` template string.*
 
-Create instace of `Wrapper` with passed `exampleDescription` and call render method:
+Call and pass `exampleDescription` into helper:
 
 ```js
-const wrapper = new Wrapper(exampleDescription);
-wrapper.render();
+createExampleWrapper(exampleDescription);
 ```
