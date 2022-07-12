@@ -29,7 +29,7 @@ const exampleDescription = {
 
 *Note: you can use HTML tags inside the `text` template string.*
 
-Call and pass `exampleDescription` into helper:
+Call helper and pass `exampleDescription` into it:
 
 ```js
 createExampleWrapper(exampleDescription);
