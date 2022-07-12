@@ -20,7 +20,8 @@
     "README.md"
   ],
   "scripts": {
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "start": "webpack watch --mode development"
   },
   "dependencies": {
     "@cubejs-client/core": "^0.29.33",

@@ -13,6 +13,10 @@ module.exports = {
       type: 'commonjs-module'
     }
   },
+  watchOptions: {
+    ignored: /node_modules/,
+    aggregateTimeout: 600
+  },
   plugins: [
     new CleanWebpackPlugin({
       cleanStaleWebpackAssets: false,
