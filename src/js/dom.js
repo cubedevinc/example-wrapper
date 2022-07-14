@@ -107,7 +107,7 @@ window.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("click", (e) => {
     if (!popupElem.contains(e.target) && popupElem.classList.contains("Popup--open")) {
       popupElem.classList.toggle("Popup--open");
-      document.body.classList.toggle("popupIsOpen");
+      document.documentElement.classList.toggle("popupIsOpen");
     }
   });
 });
