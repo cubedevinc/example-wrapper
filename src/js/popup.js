@@ -5,15 +5,16 @@ window.addEventListener("DOMContentLoaded", () => {
 
     buttonOpen.addEventListener("click", (e) => {
         e.stopPropagation();
-        popup.classList.toggle("Popup--open");
+        popup.classList.add("Popup--open");
         document.body.classList.add("popupWasOpened");
-        document.body.classList.toggle("popupIsOpen");
+        document.body.classList.add("popupIsOpen");
     });
 
     buttonClose.addEventListener("click", (e) => {
         e.stopPropagation();
-        popup.classList.toggle("Popup--open");
-        document.body.classList.toggle("popupIsOpen");
+        popup.classList.remove("Popup--open");
+        document.body.classList.remove("popupWasOpened");
+        document.body.classList.remove("popupIsOpen");
     });
 });
 

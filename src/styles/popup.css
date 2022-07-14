@@ -1,5 +1,6 @@
 body.popupIsOpen {
-    overflow: hidden;
+    overflow-y: hidden;
+    height: 100%;
 }
 
 .Popup, .Popup__OpenButton {
@@ -101,17 +102,19 @@ body.popupIsOpen::after {
     z-index: 1;
 
     position: absolute;
-    inset: 80px 126px 20px;
+    inset: 80px 8% 40px;
 
     transform: scale(0.8);
     transition: transform var(--time), box-shadow var(--time), opacity var(--time);
 
     pointer-events: initial;
+    visibility: hidden;
 }
 
 .Popup.Popup--open {
     transform: scale(1);
     opacity: 1;
+    visibility: visible;
 }
 
 .Popup__closeButton {
@@ -145,7 +148,8 @@ body.popupIsOpen::after {
 }
 
 .Popup__examplesList {
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
     max-height: 100%;
 }
 
@@ -153,7 +157,7 @@ body.popupIsOpen::after {
     row-gap: 24px;
     column-gap: 37px;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    grid-template-columns: 1fr 1fr 1fr;
     padding: 32px 60px 15px;
     max-height: 100%;
     box-sizing: border-box;
@@ -215,16 +219,16 @@ body.popupIsOpen::after {
     line-height: 20px;
 }
 
-@media (max-width: 700px) {
+/* @media (max-width: 700px) {
     .Popup {
         inset: 65px 63px 25px;
     }
     .Popup__list {
         padding: 38px 50px 15px;
     }
-}
+} */
 
-@media (max-width: 500px) {
+/* @media (max-width: 500px) {
     .Popup {
         inset: 65px 43px 20px;
     }
@@ -235,4 +239,4 @@ body.popupIsOpen::after {
     .Popup__OpenButton__text {
         display: none;
     }
-}
+} */

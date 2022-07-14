@@ -85,7 +85,7 @@
   /* DON'T REMOVE: USES AT JS  */
   --breakpoint-mobile-s: 480px;
   /* DON'T REMOVE: USES AT JS  */
-  --breakpoint-desktop-xs: 1180px;
+  --breakpoint-desktop-xs: 980px;
 
   /* ASSETS */
   --block-max-width: 1440px;
@@ -156,11 +156,6 @@
   }
 }
 
-html,
-body {
-  overflow-x: hidden;
-}
-
 body {
   background-color: #fff !important;
   min-height: 100vh;
@@ -170,6 +165,10 @@ body {
   color: var(--text-color-regular);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-width: 1024px !important;
 }
 
 .lock_body {
@@ -236,13 +235,13 @@ ul {
   color: var(--white);
 }
 
-@media (min-width: 1180px) {
+/* @media (min-width: 980px) {
   .Button--pink:hover,
   .Button--pink.Button--pseudoHover {
     background-color: var(--pink_bright);
     color: var(--white);
   }
-}
+} */
 
 .Button--pink:focus-visible,
 .Button--pink.Button--pseudoFocus {
@@ -279,13 +278,13 @@ ul {
   color: var(--purple_bright);
 }
 
-@media (min-width: 1180px) {
+/* @media (min-width: 980px) {
   .Button--outline:hover {
     border-color: var(--purple_04_a30);
     background-color: var(--purple_bg_a10);
     color: var(--purple_bright);
   }
-}
+} */
 
 .Button--outline[aria-expanded="true"],
 .Button--outline.Dropdown__button:not(.load)[aria-expanded="true"] {
@@ -366,7 +365,7 @@ a.Header__link:hover {
   white-space: nowrap;
 }
 
-@media (min-width: 1180px) {
+/* @media (min-width: 980px) { */
   .Header {
     --header_height: 88px;
     justify-content: space-between;
@@ -381,11 +380,6 @@ a.Header__link:hover {
   .Header .Dropdown {
     height: auto;
   }
-  /*
-      specify positioning at grid for Header__linkList--*
-      to prevent header collapsing
-      when Header__menu or Header__linkList--menu are removed
-      */
 
   .Header__linkList--menu {
     grid-column: 3;
@@ -446,9 +440,9 @@ a.Header__link:hover {
     justify-content: flex-end;
     gap: 8px;
   }
-}
+/* } */
 
-@media (max-width: 1180px) {
+/* @media (max-width: 980px) {
   .Header {
     --header_height: 64px;
   }
@@ -636,7 +630,7 @@ a.Header__link:hover {
   .Header--open .Header__openMenuIcon span:nth-child(3) {
     transform: rotate(-45deg) translate(var(--gap), var(--n_gap));
   }
-}
+} */
 
 @keyframes open {
   0% {
