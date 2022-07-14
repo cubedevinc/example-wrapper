@@ -6,15 +6,15 @@ window.addEventListener("DOMContentLoaded", () => {
     buttonOpen.addEventListener("click", (e) => {
         e.stopPropagation();
         popup.classList.add("Popup--open");
-        document.body.classList.add("popupWasOpened");
-        document.body.classList.add("popupIsOpen");
+        document.documentElement.classList.add("popupWasOpened");
+        document.documentElement.classList.add("popupIsOpen");
     });
 
     buttonClose.addEventListener("click", (e) => {
         e.stopPropagation();
         popup.classList.remove("Popup--open");
-        document.body.classList.remove("popupWasOpened");
-        document.body.classList.remove("popupIsOpen");
+        document.documentElement.classList.remove("popupWasOpened");
+        document.documentElement.classList.remove("popupIsOpen");
     });
 });
 
