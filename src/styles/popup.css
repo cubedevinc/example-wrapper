@@ -30,6 +30,7 @@ body.popupIsOpen .Popup__OpenButton {
     cursor: pointer;
     color: #6B4FEE;
 }
+
 .Popup__OpenButton .Popup__OpenButton__arrow {
     transition: transform var(--time);
     transform: rotate(0);
@@ -48,7 +49,6 @@ body::after {
     background-color: rgba(20, 20, 70, 0.12);
     position: absolute;
     inset: 0;
-    /*content: '';*/
     opacity: 0;
     pointer-events: none;
     animation-name: overlayClose;
@@ -71,7 +71,6 @@ body.popupWasOpened::after {
         opacity: 0;
     }
     100% {
-        /*content: none;*/
         opacity: 0;
     }
 }
@@ -146,7 +145,7 @@ body.popupIsOpen::after {
 }
 
 .Popup__examplesList {
-    overflow: scroll;
+    overflow: auto;
     max-height: 100%;
 }
 
@@ -156,7 +155,6 @@ body.popupIsOpen::after {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
     padding: 32px 60px 15px;
-    overflow: scroll;
     max-height: 100%;
     box-sizing: border-box;
 }
