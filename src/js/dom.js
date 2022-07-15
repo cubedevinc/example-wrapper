@@ -106,8 +106,8 @@ window.addEventListener("DOMContentLoaded", () => {
   // close dropdown when click outside
   window.addEventListener("click", (e) => {
     if (!popupElem.contains(e.target) && popupElem.classList.contains("Popup--open")) {
-      popupElem.classList.toggle("Popup--open");
-      document.documentElement.classList.toggle("popupIsOpen");
+      popupElem.classList.remove("Popup--open");
+      document.documentElement.classList.remove("popupIsOpen");
     }
   });
 });
