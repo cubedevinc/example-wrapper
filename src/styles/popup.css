@@ -51,6 +51,7 @@ html.popupIsOpen body {
 }
 
 body::after {
+    z-index: 100000;
     background-color: rgba(20, 20, 70, 0.12);
     position: absolute;
     inset: 0;
@@ -97,6 +98,7 @@ html.popupIsOpen body::after {
 }
 
 .Popup {
+    z-index: 100001;
     display: block;
     opacity: 0;
     background-color: white;
