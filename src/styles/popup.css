@@ -61,19 +61,18 @@ body::after {
     animation-duration: var(--time);
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
+    content: none;
 }
 
-html.popupWasOpened body::after {
+html.popupIsOpen body::after {
     content: '';
 }
 
 @keyframes overlayClose {
     0% {
-        content: '';
         opacity: 1;
     }
     99.99% {
-        content: '';
         opacity: 0;
     }
     100% {
