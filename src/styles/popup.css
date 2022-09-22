@@ -57,11 +57,15 @@ body::after {
     inset: 0;
     opacity: 0;
     pointer-events: none;
+    content: none;
     animation-name: overlayClose;
     animation-duration: var(--time);
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
-    content: none;
+}
+
+html.popupIsOpen {
+    overflow: hidden;
 }
 
 html.popupIsOpen body::after {
