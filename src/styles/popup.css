@@ -57,23 +57,26 @@ body::after {
     inset: 0;
     opacity: 0;
     pointer-events: none;
+    content: none;
     animation-name: overlayClose;
     animation-duration: var(--time);
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
 }
 
-html.popupWasOpened body::after {
+html.popupIsOpen {
+    overflow: hidden;
+}
+
+html.popupIsOpen body::after {
     content: '';
 }
 
 @keyframes overlayClose {
     0% {
-        content: '';
         opacity: 1;
     }
     99.99% {
-        content: '';
         opacity: 0;
     }
     100% {
